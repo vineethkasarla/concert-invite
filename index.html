@@ -116,20 +116,54 @@
     const box = document.querySelector("fieldset");
 
     // YES button stays inside fieldset
-    yesBtn.addEventListener("mouseover", () => {
-        const boxWidth = box.clientWidth;
-        const boxHeight = box.clientHeight;
+    // yesBtn.addEventListener("mouseover", () => {
+    //     const boxWidth = box.clientWidth;
+    //     const boxHeight = box.clientHeight;
 
-        const btnWidth = yesBtn.offsetWidth;
-        const btnHeight = yesBtn.offsetHeight;
+    //     const btnWidth = yesBtn.offsetWidth;
+    //     const btnHeight = yesBtn.offsetHeight;
 
-        const x = Math.random() * (boxWidth - btnWidth);
-        const y = Math.random() * (boxHeight - btnHeight);
+    //     const x = Math.random() * (boxWidth - btnWidth);
+    //     const y = Math.random() * (boxHeight - btnHeight);
 
-        yesBtn.style.position = "absolute";
-        yesBtn.style.left = x + "px";
-        yesBtn.style.top = y + "px";
-    });
+    //     yesBtn.style.position = "absolute";
+    //     yesBtn.style.left = x + "px";
+    //     yesBtn.style.top = y + "px";
+    // });
+
+
+
+    let moveCount = 0;
+const maxMoves = 20;
+
+yesBtn.addEventListener("mouseover", () => {
+
+
+    // stop moving after 20 times
+    if (moveCount >= maxMoves) return;
+
+// only allow click AFTER movement stops
+    if (moveCount < maxMoves) {
+        msg.innerText = "Catch me first 😜";
+        
+    
+    moveCount++;
+
+    const boxWidth = box.clientWidth;
+    const boxHeight = box.clientHeight;
+
+    const btnWidth = yesBtn.offsetWidth;
+    const btnHeight = yesBtn.offsetHeight;
+
+    const x = Math.random() * (boxWidth - btnWidth);
+    const y = Math.random() * (boxHeight - btnHeight);
+
+    yesBtn.style.position = "absolute";
+    yesBtn.style.left = x + "px";
+    yesBtn.style.top = y + "px";
+    }
+});
+
 
     // NO button shrinks
     let size = 100;
@@ -137,22 +171,27 @@
         size -= 10;
 
         if (size <= 20) {
-            noBtn.style.display = "none";
-            msg.innerText = "You have no choice left!";
+         //   noBtn.style.display = "none";
+            msg.innerText = "Thanks For The Confirmation.....!!! YAHHHH..........😜😜😜";
         } else {
             noBtn.style.width = size + "px";
         }
     });
 
     // Show result
-    yesBtn.addEventListener("click", () => {
-        const name1 = document.getElementById("actualName").value;
-        const name2 = document.getElementById("partnerName").value;
+   yesBtn.addEventListener("click", () => {  
 
-        const love = Math.floor(Math.random() * 51) + 50;
+    const name1 = document.getElementById("actualName").value;
+    const name2 = document.getElementById("partnerName").value;
 
-        msg.innerText = `${name1} ❤️ ${name2} = ${love}% Love`;
-    });
+    const love = Math.floor(Math.random() * 51) + 50;
+
+    if (moveCount == maxMoves){
+    msg.innerText = `${name1} ❤️ ${name2} = ${love}% Love`;
+    moveCount++;
+    }
+    
+});
 
     // Floating hearts
     function createHeart() {
