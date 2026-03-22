@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Anurudh's Concert Confirmation</title>
+
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(45deg, #ff6ec4, #7873f5);
+            font-family: Arial, sans-serif;
+            overflow: hidden;
+        }
+
+        fieldset {
+            position: relative; /* IMPORTANT */
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(15px);
+            border-radius: 20px;
+            padding: 30px;
+            width: 350px;
+            text-align: center;
+            box-shadow: 0 0 20px rgba(0,0,0,0.3);
+            border: none;
+        }
+
+        label {
+            font-weight: bold;
+            color: white;
+        }
+
+        input[type="text"] {
+            width: 90%;
+            padding: 8px;
+            margin: 8px 0;
+            border-radius: 10px;
+            border: none;
+            outline: none;
+        }
+
+        input[type="button"] {
+            padding: 10px 20px;
+            border-radius: 20px;
+            border: none;
+            margin: 10px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        #yesBtn {
+            background: #00ffcc;
+        }
+
+        #noBtn {
+            background: #ff4d4d;
+            color: white;
+        }
+
+        #msg {
+            display: block;
+            margin-top: 15px;
+            font-size: 18px;
+            color: white;
+        }
+
+        /* Floating hearts */
+        .heart {
+            position: absolute;
+            color: white;
+            font-size: 20px;
+            animation: float 5s linear infinite;
+        }
+
+        @keyframes float {
+            from {
+                transform: translateY(100vh);
+                opacity: 1;
+            }
+            to {
+                transform: translateY(-10vh);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<fieldset>
+    <div>
+        <h3 style="color: #ff4d4d;">
+            Hello...! Koppu Revathy Shall we go for Anirudh's Concert....?
+        </h3>
+    </div>
+
+    <label >Enter Your Name :</label><br>
+    <input type="text" id="actualName"><br>
+
+    <label >Enter Your Partner Name :</label><br>
+    <input type="text" id="partnerName"><br>
+
+    <input type="button" value="YES" id="yesBtn">
+    <input type="button" value="NO" id="noBtn"><br>
+
+    <label id="msg">Waiting for for your Results :</label>
+</fieldset>
+
+<script>
+    const yesBtn = document.getElementById("yesBtn");
+    const noBtn = document.getElementById("noBtn");
+    const msg = document.getElementById("msg");
+    const box = document.querySelector("fieldset");
+
+    // YES button stays inside fieldset
+    yesBtn.addEventListener("mouseover", () => {
+        const boxWidth = box.clientWidth;
+        const boxHeight = box.clientHeight;
+
+        const btnWidth = yesBtn.offsetWidth;
+        const btnHeight = yesBtn.offsetHeight;
+
+        const x = Math.random() * (boxWidth - btnWidth);
+        const y = Math.random() * (boxHeight - btnHeight);
+
+        yesBtn.style.position = "absolute";
+        yesBtn.style.left = x + "px";
+        yesBtn.style.top = y + "px";
+    });
+
+    // NO button shrinks
+    let size = 100;
+    noBtn.addEventListener("click", () => {
+        size -= 10;
+
+        if (size <= 20) {
+            noBtn.style.display = "none";
+            msg.innerText = "You have no choice left!";
+        } else {
+            noBtn.style.width = size + "px";
+        }
+    });
+
+    // Show result
+    yesBtn.addEventListener("click", () => {
+        const name1 = document.getElementById("actualName").value;
+        const name2 = document.getElementById("partnerName").value;
+
+        const love = Math.floor(Math.random() * 51) + 50;
+
+        msg.innerText = `${name1} ❤️ ${name2} = ${love}% Love`;
+    });
+
+    // Floating hearts
+    function createHeart() {
+        const heart = document.createElement("div");
+        heart.classList.add("heart");
+      //  heart.innerText = "❤️";
+       heart.innerText = "Revathy❤️";
+
+        heart.style.left = Math.random() * 100 + "vw";
+        heart.style.fontSize = Math.random() * 20 + 10 + "px";
+
+        document.body.appendChild(heart);
+
+        setTimeout(() => {
+            heart.remove();
+        }, 5000);
+    }
+
+    setInterval(createHeart, 200);
+</script>
+
+</body>
+</html>
